@@ -2,28 +2,34 @@ with open("prints.txt", "r") as f:
     input = f.read()
     f.close()
 
-tmp, numbers = input.split(" ")
+tmp, prints = input.split(" ")
 rules = {}
 for i in tmp.splitlines():
-    rules[i.split("|")[0]] = i.split("|")[1]
+    if not i.split("|")[0] in rules:
+        rules[i.split("|")[0]] = []
+    rules[i.split("|")[0]].append(i.split("|")[1])
 
-numbers = [i.split(",") for i in numbers.splitlines()][1:]
+prints = [i.split(",") for i in prints.splitlines()][1:]
 
 print(rules)
-print(numbers)
+print(prints)
 
-counted, corrected = [], []
-for i in numbers:
+corrected = []
+for numbers in prints:
+    if 0 == prints.index(numbers) == len(prints)-1:
+        continue
+    counted = []
     incorrect = False
-    for j in i:
+    for i in numbers:
         try:
-            if rules[j] in counted:
-                incorrect = True
+            for j in rules[i]:
+                if j in counted:
+                    incorrect = True
         except:
             pass
         counted.append(i)
     if not incorrect:
-        corrected.append(i)
+        corrected.append(numbers)
 
 val = 0
 for i in corrected:
