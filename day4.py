@@ -83,7 +83,7 @@ for a in range(len(puzzle)):
                     mas+=1
             if mas == 2:
                 mascount+=1
-                    
+
 
 print(count)
 print(mascount)
